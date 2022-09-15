@@ -77,5 +77,61 @@ namespace TestProject1
 
             Assert.That(result, Is.EqualTo(_expected));
         }
+
+        [Test]
+        public void TestStringWithNumbers_ThrowException()
+        {
+            List<string> _value = new List<string>() { "abaccadcc22"};
+            List<string> result = new List<string>();
+
+            Assert.That(() => {
+                foreach (var word in _value)
+                {
+                    result.Add(ConsoleApp1.SortingOperationsHelper.SortingOperations(word));
+                }
+            }, Throws.TypeOf<Exception>());
+        }
+
+        [Test]
+        public void TestStringWithSymbols_ThrowException()
+        {
+            List<string> _value = new List<string>() { "abaccadcc!$" };
+            List<string> result = new List<string>();
+
+            Assert.That(() => {
+                foreach (var word in _value)
+                {
+                    result.Add(ConsoleApp1.SortingOperationsHelper.SortingOperations(word));
+                }
+            }, Throws.TypeOf<Exception>());
+        }
+
+        [Test]
+        public void TestStringWithSymbolsAndNumbersAndSpaces_ThrowException()
+        {
+            List<string> _value = new List<string>() { "abaccadcc!$34 " };
+            List<string> result = new List<string>();
+
+            Assert.That(() => {
+                foreach (var word in _value)
+                {
+                    result.Add(ConsoleApp1.SortingOperationsHelper.SortingOperations(word));
+                }
+            }, Throws.TypeOf<Exception>());
+        }
+
+        [Test]
+        public void TestStringEmptyOrNull_ThrowException()
+        {
+            List<string> _value = new List<string>() { "", null };
+            List<string> result = new List<string>();
+
+            Assert.That(() => {
+                foreach (var word in _value)
+                {
+                    result.Add(ConsoleApp1.SortingOperationsHelper.SortingOperations(word));
+                }
+            }, Throws.TypeOf<Exception>());
+        }
     }
 }

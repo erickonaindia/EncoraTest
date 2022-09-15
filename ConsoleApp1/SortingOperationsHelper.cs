@@ -8,11 +8,21 @@ namespace ConsoleApp1
 {
     public static class SortingOperationsHelper
     {
+        /// <summary>
+        /// Sorting Operation Method
+        /// </summary>
+        /// <param name="value">string to sort</param>
+        /// <returns>sorted string</returns>
         public static string SortingOperations(string? value)
         {
             string result = string.Empty;
 
-            var charFreq = from f in value
+            if (!value.All(Char.IsLetter) || string.IsNullOrEmpty(value))
+            {
+                throw new Exception();
+            }
+
+            var charFreq = from f in value.Trim()
                            group f by f into letterFreq
                            orderby letterFreq.Key
                            select
