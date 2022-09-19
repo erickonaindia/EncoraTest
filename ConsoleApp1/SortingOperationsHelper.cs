@@ -1,26 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ConsoleApp.Model;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// Sorting Operation Helper
+    /// </summary>
     public static class SortingOperationsHelper
     {
         /// <summary>
-        /// Sorting Operation Method
+        /// Sorting Operation
         /// </summary>
-        /// <param name="value">string to sort</param>
-        /// <returns>sorted string</returns>
-        public static string SortingOperations(string? value)
+        /// <param name="values">StringRequest Object</param>
+        /// <returns>List of strings</returns>
+        /// <exception cref="Exception">Exception</exception>
+        public static List<string> SortingOperations(StringRequest values)
+        {
+            List<string> result = new List<string>();
+
+            if (values.N != values.Strings.Count())
+                throw new Exception(ErrorMessages.Ndifferent);
+
+            if (values.Strings.Count() == 0)
+                throw new Exception(ErrorMessages.LinesNotFound);
+
+            foreach (string value in values.Strings)
+            {
+                if (!value.All(Char.IsLetter) || string.IsNullOrEmpty(value))
+                    throw new Exception(ErrorMessages.DifferentOfLetters);
+
+                result.Add(ProcessString(value));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Process String
+        /// </summary>
+        /// <param name="value">string value</param>
+        /// <returns>string processed</returns>
+        private static string ProcessString(string value)
         {
             string result = string.Empty;
-
-            if (!value.All(Char.IsLetter) || string.IsNullOrEmpty(value))
-            {
-                throw new Exception();
-            }
 
             var charFreq = from f in value.Trim()
                            group f by f into letterFreq
@@ -46,5 +67,4 @@ namespace ConsoleApp1
             return result;
         }
     }
-    
 }
